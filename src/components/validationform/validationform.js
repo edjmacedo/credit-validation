@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
+import Panel from '../panel/panel';
 import classnames from 'classnames';
 
-class Header extends Component {
+class ValidationForm extends Component {
 
   static propTypes = {};
 
@@ -19,17 +20,16 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
-      <nav className={classnames("navbar", "navbar-default")}>
-        <div className="container">
-          <div className="navbar-header">
-            <h1 className="logo">Symbio Sweden</h1>
+      <div className="container">
+        <div className={classnames("col-xs-12", "col-sm-6", "col-sm-offset-3")}>
+          <div className="page-header">
+            <h1>Order now</h1>
           </div>
+          <Panel />
         </div>
-      </nav>
       </div>
     );
   }
 }
 
-export default Header;
+export default ValidationForm;

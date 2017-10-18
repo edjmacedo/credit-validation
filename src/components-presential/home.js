@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './home.scss';
 import Header from '../components/header/header';
+import ValidationForm from '../components/validationform/validationform'
 
 class Home extends Component {
 
@@ -13,6 +14,7 @@ class Home extends Component {
     return (
       <div>
         <Header className="AppBar" />
+        <ValidationForm className="AppBar" />
       </div>
     );
   }

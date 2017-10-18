@@ -1,27 +1,30 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: './src/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})
+var path = require('path');
+var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
-  entry: './src/shell.js',
+  entry: {
+    main: './src/shell.js'
+  },
   output: {
-    path: path.resolve('./dist'),
-    filename: 'bundle.js',
-    publicPath: 'dist/'
+    filename: './dist/bundle.js',
   },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.css$/, loader: "style-loader!css-loader" }
-    ]
+    loaders: [{
+      test: /\.js?$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel-loader',
+      query: {
+        presets: ['react', 'es2015', 'stage-0']
+      }
+    },
+    {
+      test: /\.(scss|css)$/,
+      loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+    }]
   },
   plugins: [
-    HtmlWebpackPluginConfig,
-    new ExtractTextPlugin("style.css", {allChunks: true})
+    new ExtractTextPlugin("dist/style.css", {allChunks: true}),
   ]
 }

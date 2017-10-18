@@ -8,7 +8,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import Home from './components-presential/home'
 
 // Styles
-import './css/shell.css';
+import style from './scss/shell.scss';
 
 class Shell extends React.Component
 {
