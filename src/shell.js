@@ -8,8 +8,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import Home from './components-presential/home'
 
 // Styles
-import './scss/shell.scss';
-import 'common-scss';
+import './css/shell.css';
 
 class Shell extends React.Component
 {
@@ -19,7 +18,6 @@ class Shell extends React.Component
       <div className="shell-content">
         <HashRouter>
           <Route exact path="/" component={Home} />
-          {/*<Route path="/player" component={Video} /> */}
         </HashRouter>
       </div>
 
