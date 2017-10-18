@@ -1,0 +1,28 @@
+body {
+  background: #fdfdfd;
+}
+
+.logo {
+  text-transform: uppercase;
+  font-size: 1.5em;
+  text-align: center;
+  margin: .67em 0;
+}
+
+.form-group-mini {
+  width: 50%;
+  float: left;
+  padding: 0 10px;
+}
+
+.form-group-mini:first-child {
+  padding-left: 0;
+}
+
+.form-group-mini:last-child {
+  padding-right: 0;
+}
+
+.input-group-addon {
+  min-width: 150px;
+}

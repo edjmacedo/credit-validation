@@ -1,0 +1,71 @@
+{
+  "scripts": {
+    "build": "make build",
+    "server": "node start.js",
+    "test": "make test",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "distclean": "make distclean",
+    "dev": "webpack-dev-server --content-base dist/",
+    "clean": "make clean"
+  },
+  "devDependencies": {
+    "ava": "0.17.0",
+    "babel-core": "6.18.0",
+    "babel-loader": "6.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "6.6.0",
+    "babel-preset-react": "6.3.13",
+    "babel-preset-react-app": "2.0.1",
+    "babel-preset-stage-0": "6.5.0",
+    "babel-preset-stage-2": "6.18.0",
+    "babel-register": "6.18.0",
+    "babel-resolver": "1.1.0",
+    "browser-env": "2.0.21",
+    "copy-webpack-plugin": "^4.1.1",
+    "coveralls": "2.11.9",
+    "css-loader": "0.23.1",
+    "enzyme": "2.6.0",
+    "extract-text-webpack-plugin": "1.0.1",
+    "fatigue-scripts": "git+ssh://git@git.kaiostech.com:shared/fatigue-scripts.git",
+    "file-loader": "0.8.5",
+    "ignore-styles": "5.0.1",
+    "node-sass": "^4.5.3",
+    "nyc": "6.4.0",
+    "react-addons-test-utils": "15.1.0",
+    "sass-loader": "3.2.0",
+    "sinon": "1.17.6",
+    "style-loader": "0.13.1",
+    "webpack": "1.13.0",
+    "webpack-dev-server": "^2.9.2"
+  },
+  "dependencies": {
+    "common-scss": "git+ssh://git@git.kaiostech.com:shared/common-scss.git",
+    "gaia-icons": "git+ssh://git@git.kaiostech.com:shared/gaia-icons.git",
+    "l10n": "git+ssh://git@git.kaiostech.com:shared/l10n.git",
+    "prop-types": "^15.5.10",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-router-dom": "^4.2.2"
+  },
+  "ava": {
+    "require": [
+      "ignore-styles",
+      "./test/helpers/setup-test-env.js"
+    ],
+    "source": [
+      "**/*.{js,jsx}",
+      "!dist/**/*"
+    ],
+    "files": [
+      "test/*.js"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2",
+      "react"
+    ]
+  }
+}
