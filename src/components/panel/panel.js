@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import TypeCard from '../typecard/typecard';
 
 class Panel extends Component {
 
   static propTypes = {};
 
-  static defaultProps = {}
+  static defaultProps = {
+    creditCardNumber: ''
+  }
 
   constructor(props) {
     super(props);
+    this.state = {
+      creditCardNumber: ''
+    }
   }
 
   componentDidMount() {}
@@ -25,8 +31,19 @@ class Panel extends Component {
             <div className="form-group">
               <label>Credit card number:</label>
               <div className="input-group">
-                <input type="text" className="form-control" id="card" />
-                <div className="input-group-addon" id="type"></div>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="card"
+                  onChange={
+                    event => this.setState({
+                      creditCardNumber: event.target.value
+                    })
+                  }
+                />
+                <TypeCard
+                  creditCardNumber={this.state.creditCardNumber}
+                />
               </div>
             </div>
             <div className="form-group">

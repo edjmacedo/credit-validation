@@ -1,0 +1,11 @@
+export const VISA_IDENTIFIER = 4;
+export const MASTERCARD_IDENTIFIER = 5;
+export const AMERICAN_FIRSTIDENTIFIER = 34;
+export const AMERICAN_SECONDIDENTIFIER = 37;
+export const VISA_NAME = 'Visa';
+export const MASTERCARD_NAME = 'Mastercard';
+export const AMERICAN_NAME = 'American Express';
+export const MIN_CARD_LENGTH = '13';
+export const MAX_CARD_LENGTH = '16';
+export const AMERICAN_LENGTH = '15';
+export const INVALID_CARD = 'Invalid';
