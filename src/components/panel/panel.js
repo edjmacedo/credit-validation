@@ -10,6 +10,7 @@ class Panel extends Component {
 
   static propTypes = {
     creditCardNumber: PropTypes.string,
+    ownerName: PropTypes.string,
     expirydate: PropTypes.string,
     cvv: PropTypes.string,
     submitted: PropTypes.bool,
@@ -18,6 +19,7 @@ class Panel extends Component {
 
   static defaultProps = {
     creditCardNumber: '',
+    ownerName: '',
     expirydate: '',
     cvv: '',
     submitted: false,
@@ -29,6 +31,7 @@ class Panel extends Component {
     this.onSubmit = this.handleSubmit.bind(this);
     this.state = {
       creditCardNumber: '',
+      ownerName: '',
       expirydate: '',
       cvv: '',
       submitted: false,
@@ -41,7 +44,7 @@ class Panel extends Component {
 
     let reqBody = {
       creditnumber: this.state.creditCardNumber,
-      name: this.refs.name.value,
+      name: this.state.ownerName,
       expirydate: this.state.expirydate,
       cvv: this.state.cvv
     };
@@ -58,7 +61,17 @@ class Panel extends Component {
           body: JSON.stringify(reqBody)
         }).then(function(response) {
           console.log(response);
-          response.ok ? self.setState({submitted: true}) : self.setState({submitted: false})
+          if (response.ok) {
+            self.setState({
+              submitted: true,
+              creditCardNumber: '',
+              ownerName: '',
+              expirydate: '',
+              cvv: ''
+            })
+          } else {
+            self.setState({submitted: false})
+          }
         }).then(function(body) {});
     } else {
       this.setState({
@@ -101,7 +114,7 @@ class Panel extends Component {
                   size="19"
                   className="form-control"
                   id="creditCard"
-                  value=""
+                  value={this.state.creditCardNumber}
                   onChange={
                     event => this.setState({
                       creditCardNumber: event.target.value
@@ -115,7 +128,16 @@ class Panel extends Component {
             </div>
             <div className="form-group">
               <label>Name on card:</label>
-              <input type="text" className={classnames("form-control", "crname")} ref="name"/>
+              <input
+                type="text"
+                className={classnames("form-control", "crname")}
+                value={this.state.ownerName}
+                onChange={
+                  event => this.setState({
+                    ownerName: event.target.value
+                  })
+                }
+              />
             </div>
             <div className="clearfix">
               <div className={classnames("form-group", "form-group-mini")}>
@@ -124,6 +146,7 @@ class Panel extends Component {
                   mask="11/1111"
                   placeholder="mm/yyyy"
                   className="form-control"
+                  value={this.state.expirydate}
                   onChange={
                     event => this.setState({
                       expirydate: event.target.value
@@ -136,6 +159,7 @@ class Panel extends Component {
                 <MaskedInput
                   mask="111"
                   className="form-control"
+                  value={this.state.cvv}
                   onChange={
                     event => this.setState({
                       cvv: event.target.value
