@@ -16,19 +16,77 @@ class Panel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      creditCardNumber: ''
+      creditCardNumber: '',
+      expirydate: '',
+      cvv: '',
+      submitted: false,
+      fillBlanks: false
     }
+    this.onSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {}
 
+  handleSubmit(e) {
+    e.preventDefault();
+
+    let reqBody = {
+      creditnumber: this.state.creditCardNumber,
+      name: this.refs.name.value,
+      expirydate: this.state.expirydate,
+      cvv: this.state.cvv
+    };
+
+    let self = this;
+    console.log(reqBody);
+    if (reqBody.creditnumber != '' && reqBody.name != '' &&
+      reqBody.expirydate != '' && reqBody.cvv != '') {
+      this.setState({
+        fillBlanks: false
+      })
+      fetch('http://httpbin.org/post', {
+          method: 'POST',
+          body: JSON.stringify(reqBody)
+        }).then(function(response) {
+          console.log(response);
+          response.ok ? self.setState({submitted: true}) : self.setState({submitted: false})
+          return response.json();
+        }).then(function(body) {
+          console.log(body);
+        });
+    } else {
+      this.setState({
+        fillBlanks: true
+      })
+    }
+  }
+
   render() {
+    let { submitted, fillBlanks } = this.state;
+
     return (
       <div className="panel">
+        <div className={
+          classnames(
+            {"alert": submitted},
+            {"alert-success": submitted}
+          )}
+        >
+          { submitted ? <strong>Submitted</strong> : ''}
+        </div>
+        <div className={
+          classnames(
+            {"alert": fillBlanks},
+            {"alert-danger": fillBlanks},
+          )}
+        >
+          { fillBlanks ? <strong>Please fill the blanks</strong> : ''}
+        </div>
+
         <div className="panel-body">
-          <form>
+          <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <label>Credit card number:</label>
               <div className="input-group">
@@ -50,7 +108,7 @@ class Panel extends Component {
             </div>
             <div className="form-group">
               <label>Name on card:</label>
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" ref="name"/>
             </div>
             <div className="clearfix">
               <div className={classnames("form-group", "form-group-mini")}>
@@ -59,6 +117,11 @@ class Panel extends Component {
                   mask="11/1111"
                   placeholder="mm/yyyy"
                   className="form-control"
+                  onChange={
+                    event => this.setState({
+                      expirydate: event.target.value
+                    })
+                  }
                 />
               </div>
               <div className={classnames("form-group", "form-group-mini")}>
@@ -66,6 +129,11 @@ class Panel extends Component {
                 <MaskedInput
                   mask="111"
                   className="form-control"
+                  onChange={
+                    event => this.setState({
+                      cvv: event.target.value
+                    })
+                  }
                 />
               </div>
             </div>
