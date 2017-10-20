@@ -58,7 +58,8 @@ class Panel extends Component {
         });
     } else {
       this.setState({
-        fillBlanks: true
+        fillBlanks: true,
+        submitted: false
       })
     }
   }
