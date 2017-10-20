@@ -46,7 +46,7 @@ class Panel extends Component {
       this.setState({
         fillBlanks: false
       })
-      fetch('http://httpbin.org/post', {
+      fetch('https://httpbin.org/post', {
           method: 'POST',
           body: JSON.stringify(reqBody)
         }).then(function(response) {
