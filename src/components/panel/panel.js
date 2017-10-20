@@ -46,16 +46,13 @@ class Panel extends Component {
       this.setState({
         fillBlanks: false
       })
-      fetch('https://httpbin.org/post', {
+      fetch('http://45.55.51.227:8080/', {
           method: 'POST',
           body: JSON.stringify(reqBody)
         }).then(function(response) {
           console.log(response);
           response.ok ? self.setState({submitted: true}) : self.setState({submitted: false})
-          return response.json();
-        }).then(function(body) {
-          console.log(body);
-        });
+        }).then(function(body) {});
     } else {
       this.setState({
         fillBlanks: true,
@@ -93,9 +90,11 @@ class Panel extends Component {
               <div className="input-group">
                 <MaskedInput
                   mask="1111 1111 1111 1111"
-                  size="20"
+                  name="creditCard"
+                  size="19"
                   className="form-control"
-                  id="card"
+                  id="creditCard"
+                  value=""
                   onChange={
                     event => this.setState({
                       creditCardNumber: event.target.value
@@ -109,7 +108,7 @@ class Panel extends Component {
             </div>
             <div className="form-group">
               <label>Name on card:</label>
-              <input type="text" className="form-control" ref="name"/>
+              <input type="text" className={classnames("form-control", "crname")} ref="name"/>
             </div>
             <div className="clearfix">
               <div className={classnames("form-group", "form-group-mini")}>
