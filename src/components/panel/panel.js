@@ -4,17 +4,29 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import TypeCard from '../typecard/typecard';
 import MaskedInput from 'react-maskedinput';
+import { SERVER_URL } from '../../constants';
 
 class Panel extends Component {
 
-  static propTypes = {};
+  static propTypes = {
+    creditCardNumber: PropTypes.string,
+    expirydate: PropTypes.string,
+    cvv: PropTypes.string,
+    submitted: PropTypes.bool,
+    fillBlanks: PropTypes.bool
+  };
 
   static defaultProps = {
-    creditCardNumber: ''
+    creditCardNumber: '',
+    expirydate: '',
+    cvv: '',
+    submitted: false,
+    fillBlanks: false
   }
 
   constructor(props) {
     super(props);
+    this.onSubmit = this.handleSubmit.bind(this);
     this.state = {
       creditCardNumber: '',
       expirydate: '',
@@ -22,12 +34,7 @@ class Panel extends Component {
       submitted: false,
       fillBlanks: false
     }
-    this.onSubmit = this.handleSubmit.bind(this);
   }
-
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {}
 
   handleSubmit(e) {
     e.preventDefault();
@@ -40,13 +47,13 @@ class Panel extends Component {
     };
 
     let self = this;
-    console.log(reqBody);
+    // Verify all fields and send a post request to server
     if (reqBody.creditnumber != '' && reqBody.name != '' &&
       reqBody.expirydate != '' && reqBody.cvv != '') {
       this.setState({
         fillBlanks: false
       })
-      fetch('http://45.55.51.227:8080/', {
+      fetch(SERVER_URL, {
           method: 'POST',
           body: JSON.stringify(reqBody)
         }).then(function(response) {

@@ -1,5 +1,3 @@
-
-// Libs
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route } from 'react-router-dom';

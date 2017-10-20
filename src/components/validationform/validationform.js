@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
-
-import PropTypes from 'prop-types';
 import Panel from '../panel/panel';
 import classnames from 'classnames';
 
 class ValidationForm extends Component {
-
-  static propTypes = {};
-
-  static defaultProps = {}
-
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {}
 
   render() {
     return (

@@ -9,3 +9,4 @@ export const MIN_CARD_LENGTH = '13';
 export const MAX_CARD_LENGTH = '16';
 export const AMERICAN_LENGTH = '15';
 export const INVALID_CARD = 'Invalid';
+export const SERVER_URL = 'http://45.55.51.227:8080/'

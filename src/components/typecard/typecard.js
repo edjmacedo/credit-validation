@@ -18,9 +18,17 @@ import {
 
 class TypeCard extends Component {
 
-  static propTypes = {};
+  static propTypes = {
+    creditCardNumber: PropTypes.string,
+    carrierCard: PropTypes.string,
+    undefinedCarrier: PropTypes.bool
+  };
 
-  static defaultProps = {}
+  static defaultProps = {
+    creditCardNumber: '',
+    carrierCard: '',
+    undefinedCarrier: true
+  }
 
   constructor(props) {
     super(props);
@@ -30,8 +38,6 @@ class TypeCard extends Component {
       undefinedCarrier: true
     }
   }
-
-  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     let digits = '';
@@ -71,30 +77,32 @@ class TypeCard extends Component {
 
   }
 
+  // Validate the type of credit card - Visa - Mastercard - American Express
   validateCarrierCard(cardNumber) {
     if (cardNumber == VISA_IDENTIFIER) {
       this.setState({
         carrierCard: VISA_NAME,
         undefinedCarrier: false
-      });
+      })
     } else if (cardNumber == MASTERCARD_IDENTIFIER) {
       this.setState({
         carrierCard: MASTERCARD_NAME,
         undefinedCarrier: false
-      });
+      })
     } else if (cardNumber == AMERICAN_FIRSTIDENTIFIER ||
     cardNumber == AMERICAN_SECONDIDENTIFIER) {
       this.setState({
         carrierCard: AMERICAN_NAME,
         undefinedCarrier: false
-      });
+      })
     } else if (cardNumber.length === 0) {
       this.setState({
         undefinedCarrier: true
-      });
+      })
     }
   }
 
+  // Validate credit card by length
   validateCreditNumberByLength(cardNumber) {
     let indexLength = cardNumber.length - 1;
     let alternateNumber = false;
