@@ -34,14 +34,14 @@ class TypeCard extends Component {
 
   componentWillReceiveProps(nextProps) {
     let digits = '';
-    let indexOfCheckDigits = 2;
-    let lengthOfValidCard = 13;
-    let firstIndexCheck = 0;
-    let secIndexCheck = 1;
-    let radix = 10;
+    const indexOfCheckDigits = 2;
+    const lengthOfValidCard = 13;
+    const firstIndexCheck = 0;
+    const secIndexCheck = 1;
+    const radix = 10;
 
     this.setState({
-      creditCardNumber: nextProps.creditCardNumber
+      creditCardNumber: nextProps.creditCardNumber.replace(/\s/g,'').replace(/_/g, "")
     });
 
     // Verify type of possible credit card getting two digits only

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import TypeCard from '../typecard/typecard';
+import MaskedInput from 'react-maskedinput';
 
 class Panel extends Component {
 
@@ -31,8 +32,9 @@ class Panel extends Component {
             <div className="form-group">
               <label>Credit card number:</label>
               <div className="input-group">
-                <input
-                  type="text"
+                <MaskedInput
+                  mask="1111 1111 1111 1111"
+                  size="20"
                   className="form-control"
                   id="card"
                   onChange={
@@ -53,11 +55,18 @@ class Panel extends Component {
             <div className="clearfix">
               <div className={classnames("form-group", "form-group-mini")}>
                 <label>Expiry date:</label>
-                <input type="text" className="form-control" />
+                <MaskedInput
+                  mask="11/1111"
+                  placeholder="mm/yyyy"
+                  className="form-control"
+                />
               </div>
               <div className={classnames("form-group", "form-group-mini")}>
                 <label>CVV:</label>
-                <input type="text" className="form-control" />
+                <MaskedInput
+                  mask="111"
+                  className="form-control"
+                />
               </div>
             </div>
             <br/>
