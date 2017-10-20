@@ -71,7 +71,7 @@ class Panel extends Component {
             </div>
             <br/>
             <p>
-              <button className={classnames("btn", "btn-primary")}>Submit</button>
+              <button type="submit" className={classnames("btn", "btn-primary")}>Submit</button>
             </p>
           </form>
         </div>

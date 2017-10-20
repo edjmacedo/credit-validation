@@ -26,7 +26,8 @@ class TypeCard extends Component {
     super(props);
     this.state = {
       creditCardNumber: this.props.creditCardNumber,
-      carrierCard: ''
+      carrierCard: '',
+      undefinedCarrier: true
     }
   }
 
@@ -59,30 +60,38 @@ class TypeCard extends Component {
          (digits == VISA_IDENTIFIER || digits == MASTERCARD_IDENTIFIER)) {
         this.validateCarrierCard(digits);
       } else {
-        digits = `${digits}${parseInt(nextProps.creditCardNumber.charAt(secIndexCheck), radix)}`
+        digits = `${digits}${parseInt(nextProps.creditCardNumber.charAt(secIndexCheck), radix)}`;
+        this.setState({
+          carrierCard: '',
+          undefinedCarrier: true
+        });
         this.validateCarrierCard(digits);
       }
     }
+
   }
 
   validateCarrierCard(cardNumber) {
     if (cardNumber == VISA_IDENTIFIER) {
       this.setState({
-        carrierCard: VISA_NAME
+        carrierCard: VISA_NAME,
+        undefinedCarrier: false
       });
     } else if (cardNumber == MASTERCARD_IDENTIFIER) {
       this.setState({
-        carrierCard: MASTERCARD_NAME
+        carrierCard: MASTERCARD_NAME,
+        undefinedCarrier: false
       });
     } else if (cardNumber == AMERICAN_FIRSTIDENTIFIER ||
     cardNumber == AMERICAN_SECONDIDENTIFIER) {
       this.setState({
-        carrierCard: AMERICAN_NAME
+        carrierCard: AMERICAN_NAME,
+        undefinedCarrier: false
       });
     } else if (cardNumber.length === 0) {
       this.setState({
-        carrierCard: ''
-      })
+        undefinedCarrier: true
+      });
     }
   }
 
@@ -132,12 +141,17 @@ class TypeCard extends Component {
 
   render() {
     // Avoid to re-render everytime with state also improve performance
-    let { carrierCard, creditCardNumber } = this.state;
+    let { carrierCard, creditCardNumber, undefinedCarrier } = this.state;
     let isValidCardLenght = this.validateCreditNumberByLength(creditCardNumber);
 
     return (
       <div className="input-group-addon" id="type">
-        <label className="control-label">{this.state.carrierCard}</label>
+        <label className={
+          classnames({"control-label": !undefinedCarrier},
+            {"glyphicon": undefinedCarrier},
+            {"glyphicon-question-sign": undefinedCarrier})}>
+            {!undefinedCarrier ? carrierCard : ''}
+          </label>
         { isValidCardLenght ?
             <div className={classnames("glyphicon", "glyphicon-ok")}></div> :
             <div className={classnames("glyphicon", "glyphicon-remove")}></div>
