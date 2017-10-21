@@ -8,10 +8,8 @@ import Home from './components-presential/home'
 // Styles
 import style from './scss/shell.scss';
 
-class Shell extends React.Component
-{
-  render()
-  {
+class Shell extends React.Component {
+  render() {
     return (
       <div className="shell-content">
         <HashRouter>
